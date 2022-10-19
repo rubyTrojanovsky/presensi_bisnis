@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:presensi_bisnis/components/button.dart';
 import 'package:presensi_bisnis/components/dropdown.dart';
+import 'package:presensi_bisnis/screens/scan_qr.dart';
 
 class Beranda extends StatelessWidget {
   const Beranda({Key? key}) : super(key: key);
@@ -19,7 +21,7 @@ class Beranda extends StatelessWidget {
               ))),
               DropdownMatkul(),
               DropdownTanggal(),
-              Button()
+              Button(buttonDesc: 'Absensi', buttonTap: () {Get.to(() => ScanQR());},)
           ],
         ),
       ),
