@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:presensi_bisnis/components/button.dart';
 import 'package:presensi_bisnis/components/dropdown.dart';
+import 'package:presensi_bisnis/screens/daftar_hadir.dart';
 import 'package:presensi_bisnis/screens/scan_qr.dart';
 
 class Beranda extends StatelessWidget {
@@ -14,14 +15,26 @@ class Beranda extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(16, 48, 16, 18),
         child: Column(
           children: [
-            Center(child: Text('Aplikasi Presensi Kelas 4IA01',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize:30,
-              ))),
-              DropdownMatkul(),
-              DropdownTanggal(),
-              Button(buttonDesc: 'Absensi', buttonTap: () {Get.to(() => ScanQR());},)
+            Center(
+                child: Text('Aplikasi Presensi Kelas 4IA01',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 30,
+                    ))),
+            DropdownMatkul(),
+            DropdownTanggal(),
+            Button(
+              buttonDesc: 'Absensi',
+              buttonTap: () {
+                Get.to(() => ScanQR());
+              },
+            ),
+            Button(
+              buttonDesc: 'Lihat daftar absen',
+              buttonTap: () {
+                Get.to(() => DaftarHadir());
+              },
+            )
           ],
         ),
       ),

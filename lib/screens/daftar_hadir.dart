@@ -5,8 +5,11 @@ class DaftarHadir extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 48, 16, 18),
+        child: Column(children: [Text("daftar hadir")],),
+      ),
     );
   }
 }
