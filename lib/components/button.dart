@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:presensi_bisnis/screens/scan_qr.dart';
 
 class Button extends StatelessWidget {
   const Button({ Key? key }) : super(key: key);
@@ -6,7 +8,9 @@ class Button extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-                      onPressed: (){},
+                      onPressed: (){
+                        Get.to(() => ScanQR());
+                      },
                       style: ElevatedButton.styleFrom(
                         primary: Colors.orange[700],
                       ),
@@ -20,7 +24,7 @@ class Button extends StatelessWidget {
                         //       width: 35,
                         //       ),
                         // ),
-                        Text("Pesan Sekarang"),
+                        Text("Absen"),
                       ]),
                     );
   }

@@ -2,10 +2,23 @@ import 'package:get/get.dart';
 
 class AbsenController extends GetxController {
   static List<String> listMatkul = <String>['Bisnis Informatika', 'PPPL', 'Pengolahan Citra', 'RPL 2'];
-  final matkul = "Bisnis Informatika".obs;
+  RxString _matkul = "Bisnis Informatika".obs;
+  RxString get matkul => this._matkul;
 
   static List<String> listTanggal = <String>['10 November 2022', '11 November 2022', '12 November 2022', '13 November 2022'];
-  final tanggal = "10 November 2022".obs;
+  RxString _tanggal = "10 November 2022".obs;
+  RxString get tanggal => this._tanggal;
+
+  @override
+  void onInit() {
+    matkul;
+    super.onInit();
+  }
+
+  // @override
+  // void onClose() {
+  //   _matkul.;
+  // }
 
   void setMatkul(String value) {
     matkul.value = value;
@@ -16,4 +29,6 @@ class AbsenController extends GetxController {
     tanggal.value = value;
     print(value);
   }
+
+
 }
