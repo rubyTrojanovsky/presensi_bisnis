@@ -15,10 +15,10 @@ class AbsenController extends GetxController {
     super.onInit();
   }
 
-  // @override
-  // void onClose() {
-  //   _matkul.;
-  // }
+  @override
+  void onClose() {
+    
+  }
 
   void setMatkul(String value) {
     matkul.value = value;
