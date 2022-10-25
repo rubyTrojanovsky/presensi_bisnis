@@ -18,6 +18,7 @@ class _ScanQRState extends State<ScanQR> {
   final qrKey = GlobalKey(debugLabel: 'QR');
   Barcode? result;
   QRViewController? controller;
+  late String npm;
 
   @override
   void reassemble() async {
@@ -37,7 +38,6 @@ class _ScanQRState extends State<ScanQR> {
 
   @override
   Widget build(BuildContext context) {
-    // QRController camControl = Get.put(QRController());
     Size size = MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: () async {
@@ -90,8 +90,13 @@ class _ScanQRState extends State<ScanQR> {
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         result = scanData;
-        Get.to(() => Validasi(npm: result!.code.toString(),));
-        controller.pauseCamera();
+        npm = result!.code.toString();
+        if (GetUtils.isNum(npm) && npm.length == 8) {
+          Get.to(() => Validasi(npm: npm,));
+          controller.pauseCamera();
+        } else {
+          print('format tidak sesuai');
+        }
       });
     });
   }

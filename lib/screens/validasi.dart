@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:presensi_bisnis/controller/absen_controller.dart';
 import 'package:presensi_bisnis/screens/scan_qr.dart';
 import 'package:presensi_bisnis/screens/sukses.dart';
 
@@ -11,6 +12,7 @@ class Validasi extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AbsenController validasiController = Get.put(AbsenController());
     return WillPopScope(
       onWillPop: () async {
         // Do something here
@@ -31,6 +33,9 @@ class Validasi extends StatelessWidget {
               Column(
                 children: [
                   Text("npm "+ npm),
+                  Text("nama "),
+                  Text("Matkul "+ validasiController.matkul.value),
+                  Text("Jadwal "+ validasiController.tanggal.value),
                   Button(
               buttonDesc: 'Lihat daftar absen',
               buttonTap: () {
