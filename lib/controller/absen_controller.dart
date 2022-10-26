@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AbsenController extends GetxController {
@@ -9,6 +10,11 @@ class AbsenController extends GetxController {
   RxString _tanggal = "10 November 2022".obs;
   RxString get tanggal => this._tanggal;
 
+  RxString _npm = ''.obs;
+  RxString get npm => this._npm;
+
+  final inputNPM = TextEditingController();
+
   @override
   void onInit() {
     matkul;
@@ -17,7 +23,8 @@ class AbsenController extends GetxController {
 
   @override
   void onClose() {
-    
+    inputNPM.dispose();
+    super.dispose();
   }
 
   void setMatkul(String value) {
@@ -27,6 +34,11 @@ class AbsenController extends GetxController {
 
   void setTanggal(String value) {
     tanggal.value = value;
+    print(value);
+  }
+
+  void setNPM(String value) {
+    npm.value = value;
     print(value);
   }
 

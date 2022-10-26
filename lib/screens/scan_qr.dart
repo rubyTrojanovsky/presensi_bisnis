@@ -2,8 +2,10 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:presensi_bisnis/components/button.dart';
 import 'package:presensi_bisnis/controller/absen_controller.dart';
 import 'package:presensi_bisnis/screens/beranda.dart';
+import 'package:presensi_bisnis/screens/input_manual.dart';
 import 'package:presensi_bisnis/screens/validasi.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
@@ -56,6 +58,12 @@ class _ScanQRState extends State<ScanQR> {
                     height: size.height * 0.6,
                     child: buildQrView(context),
                   ),
+                  Button(
+                buttonTap: () {
+                  controller!.pauseCamera();
+                  Get.to(() => InputManual());
+                },
+                buttonDesc: 'Presensi manual'),
               //     Center(
               //   child: (result != null)
               //       ? Text(

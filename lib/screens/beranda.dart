@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:presensi_bisnis/components/button.dart';
 import 'package:presensi_bisnis/components/dropdown.dart';
 import 'package:presensi_bisnis/screens/daftar_hadir.dart';
+import 'package:presensi_bisnis/screens/input_manual.dart';
 import 'package:presensi_bisnis/screens/scan_qr.dart';
 
 class Beranda extends StatelessWidget {
@@ -24,7 +25,7 @@ class Beranda extends StatelessWidget {
             DropdownMatkul(),
             DropdownTanggal(),
             Button(
-              buttonDesc: 'Absensi',
+              buttonDesc: 'Presensi menggunakan QR Code',
               buttonTap: () {
                 Get.to(() => ScanQR());
               },
