@@ -1,9 +1,7 @@
 import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:presensi_bisnis/components/button.dart';
-import 'package:presensi_bisnis/controller/absen_controller.dart';
 import 'package:presensi_bisnis/screens/beranda.dart';
 import 'package:presensi_bisnis/screens/input_manual.dart';
 import 'package:presensi_bisnis/screens/validasi.dart';
@@ -65,7 +63,7 @@ class _ScanQRState extends State<ScanQR> {
                 SizedBox(height: 20,),
                 Button(
               buttonTap: () {
-                controller!.pauseCamera();
+                controller!.stopCamera();;
                 Get.to(() => InputManual());
               },
               buttonDesc: 'Presensi manual'),
@@ -105,7 +103,7 @@ class _ScanQRState extends State<ScanQR> {
         npm = result!.code.toString();
         if (GetUtils.isNum(npm) && npm.length == 8) {
           Get.to(() => Validasi(npm: npm,));
-          controller.pauseCamera();
+          controller.stopCamera();
         } else {
           print('format tidak sesuai');
         }
