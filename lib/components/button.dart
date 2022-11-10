@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 class Button extends StatelessWidget {
@@ -13,18 +11,21 @@ class Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-                      onPressed: buttonTap,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 29, 133, 69),
-                      ),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * 0.72,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 10, top: 15, bottom: 15, right: 10),
-                          child: Center(child: Text(buttonDesc)),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: ElevatedButton(
+                        onPressed: buttonTap,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromARGB(255, 29, 133, 69),
+                        ),
+                        child: Container(
+                          width: double.infinity,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 10, top: 15, bottom: 15, right: 10),
+                            child: Center(child: Text(buttonDesc)),
+                          ),
                         ),
                       ),
-                    );
+    );
   }
 }

@@ -48,31 +48,35 @@ class _ScanQRState extends State<ScanQR> {
         return false;
      },
       child: Scaffold(
+        appBar: AppBar(
+          title: Text('Scan QR'),
+          centerTitle: true,
+          backgroundColor: Color.fromARGB(255, 29, 133, 69)
+        ),
         body: Container(
-          child: SingleChildScrollView(
-            child: Column(
-                children: [
-                  // Text("matkul " + controller.matkul.string),
-                  // Text("tanggal " + controller.tanggal.string),
-                  SizedBox(
-                    height: size.height * 0.6,
-                    child: buildQrView(context),
-                  ),
-                  Button(
-                buttonTap: () {
-                  controller!.pauseCamera();
-                  Get.to(() => InputManual());
-                },
-                buttonDesc: 'Presensi manual'),
-              //     Center(
-              //   child: (result != null)
-              //       ? Text(
-              //           'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
-              //       : Text('Scan a code'),
-              // ),
-                  
-                ],
-              ),
+          child: Column(
+              children: [
+                // Text("matkul " + controller.matkul.string),
+                // Text("tanggal " + controller.tanggal.string),
+                SizedBox(
+                  height: size.height * 0.6,
+                  child: buildQrView(context),
+                ),
+                SizedBox(height: 20,),
+                Button(
+              buttonTap: () {
+                controller!.pauseCamera();
+                Get.to(() => InputManual());
+              },
+              buttonDesc: 'Presensi manual'),
+            //     Center(
+            //   child: (result != null)
+            //       ? Text(
+            //           'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
+            //       : Text('Scan a code'),
+            // ),
+                
+              ],
             ),
         ),
         

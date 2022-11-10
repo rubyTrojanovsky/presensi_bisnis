@@ -12,42 +12,93 @@ class Validasi extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     AbsenController validasiController = Get.put(AbsenController());
     return WillPopScope(
       onWillPop: () async {
         // Do something here
         Get.to(() => ScanQR());
         return false;
-     },
+      },
       child: Scaffold(
+        appBar: AppBar(
+            title: Text('Konfirmasi'),
+            centerTitle: true,
+            backgroundColor: Color.fromARGB(255, 29, 133, 69)),
         body: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 48, 16, 18),
+          padding: const EdgeInsets.fromLTRB(16, 24, 16, 18),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Center(
-                  child: Text('Apakah data-data berikut sudah benar?',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 30,
-                      ))),
-              Column(
-                children: [
-                  Text("npm "+ npm),
-                  Text("nama "),
-                  Text("Matkul "+ validasiController.matkul.value),
-                  Text("Jadwal "+ validasiController.tanggal.value),
-                  Button(
-              buttonDesc: 'Lihat daftar absen',
-              buttonTap: () {
-                Get.to(() => SuksesPage());
-              },
-            )
-                ],
+              Text('Apakah data-data berikut sudah benar?',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 30,
+                  )),
+              SizedBox(
+                height: 20,
+              ),
+              Icon(
+                Icons.pending_actions, size: size.width * 0.5, color: Color.fromARGB(255, 29, 133, 69)
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                height: size.height * 0.2,
+                width: size.width,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      DataMhs(datamhs: "NPM : "+npm),
+                      Row(
+                        children: [
+                          DataMhs(datamhs: "Nama :"),
+                          Flexible(child: DataMhs(datamhs: 'asd akjsdh kajsdh kajhsd kajsdh jk'))
+                        ],
+                      ),Row(
+                        children: [
+                          DataMhs(datamhs: "Mata Kuliah : "),
+                          DataMhs(datamhs: validasiController.matkul.toString())
+                        ],
+                      ),Row(
+                        children: [
+                          DataMhs(datamhs: "Jadwal : "),
+                          DataMhs(datamhs: validasiController.tanggal.toString())
+                        ],
+                      ),
+                      SizedBox(
+                  height: 5,
+              ),
+                      
+                    ],
+                  ),
+                ),
+              ),
+              Button(
+                  buttonDesc: 'Presensi',
+                  buttonTap: () {
+                    Get.to(() => SuksesPage());
+                  },
               )
             ],
           ),
         ),
       ),
     );
+  }
+}
+
+class DataMhs extends StatelessWidget {
+  const DataMhs({Key? key, required this.datamhs}) : super(key: key);
+
+  final String datamhs;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(datamhs, style: TextStyle(fontSize: 18), maxLines: 1,);
   }
 }

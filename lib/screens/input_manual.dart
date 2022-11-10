@@ -18,6 +18,11 @@ class InputManual extends StatelessWidget {
         return false;
      },
     child: Scaffold(
+      appBar: AppBar(
+          title: Text('Input Manual'),
+          centerTitle: true,
+          backgroundColor: Color.fromARGB(255, 29, 133, 69)
+        ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 48, 16, 18),
         child: Container(
