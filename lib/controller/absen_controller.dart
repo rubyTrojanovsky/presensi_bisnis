@@ -16,7 +16,7 @@ class AbsenController extends GetxController {
   RxString _tanggal = "Minggu 1".obs;
   RxString get tanggal => this._tanggal;
 
-  RxString _npm = ''.obs;
+  RxString _npm = '50419135'.obs;
   RxString get npm => this._npm;
 
   RxString _namaMhs= ''.obs;
@@ -51,5 +51,8 @@ class AbsenController extends GetxController {
     print(value);
   }
 
-
+  void setNama(String value) {
+    namaMhs.value = value;
+    print(value);
+  }
 }

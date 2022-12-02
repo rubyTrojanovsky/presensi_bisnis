@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:presensi_bisnis/controller/absen_controller.dart';
+import 'package:presensi_bisnis/models/api_provider.dart';
 import 'package:presensi_bisnis/screens/scan_qr.dart';
 import 'package:presensi_bisnis/screens/sukses.dart';
 
 import '../components/button.dart';
 
 class Validasi extends StatelessWidget {
-  const Validasi({Key? key, required this.npm, required this.nama}) : super(key: key);
-  final String npm;
-  final String nama;
+  const Validasi({Key? key,}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +18,10 @@ class Validasi extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async {
         // Do something here
-        Get.to(() => ScanQR());
+        Get.offAll(() => ScanQR());
         return false;
       },
-      child: Scaffold(
+      child:Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
             title: Text('Konfirmasi'),
@@ -55,12 +55,12 @@ class Validasi extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      DataMhs(datamhs: "NPM : ${npm}"),
+                      DataMhs(datamhs: "NPM : "+ validasiController.npm.value),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           DataMhs(datamhs: "Nama : "),
-                          Flexible(child: DataMhs(datamhs: nama))
+                          Flexible(child: DataMhs(datamhs: validasiController.namaMhs.value))
                         ],
                       ),Row(
                         children: [

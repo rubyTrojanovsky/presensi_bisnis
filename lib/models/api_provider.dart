@@ -8,7 +8,7 @@ class MhsController extends GetxController {
   String BaseUrl = 'http://35.219.90.159:32022/api';
 
   late MahasiswaModel dataMahasiswa;
-  // late MahasiswaModel idMahasiswa;
+  // late MahasiswaModel namaMahasiswa;
   // late MahasiswaModel npmMahasiswa;
   // late MahasiswaModel modelMahasiswa;
 
@@ -20,9 +20,10 @@ class MhsController extends GetxController {
     print(response.body);
     // modelMahasiswa = MahasiswaModel.fromJson(json.decode(response.body));
     dataMahasiswa = MahasiswaModel.fromJson(json.decode(response.body)['data']);
-    // idMahasiswa = MahasiswaModel.fromJson(json.decode(response.body)['id']);
+    // namaMahasiswa = MahasiswaModel.fromJson(json.decode(response.body)['data']['nama']);
     // npmMahasiswa = MahasiswaModel.fromJson(json.decode(response.body)['npm']); 
     // print('${namaMahasiswa}'+'${idMahasiswa}'+'${npmMahasiswa}');
+    controller.namaMhs.value = dataMahasiswa.nama.toString();
     return dataMahasiswa;
   } else {
     throw Exception('mhs tidak ditemukan');

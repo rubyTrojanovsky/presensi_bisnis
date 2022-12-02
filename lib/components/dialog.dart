@@ -5,14 +5,20 @@ class Loading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-        content: 
-        Row(
-          children: [
-            CircularProgressIndicator(),
-            Text(
-            "Mohon tunggu, aplikasi sedang validasi")],
-        )
-        );
+    Size size = MediaQuery.of(context).size;
+    return SizedBox(
+      width: size.width*0.8,
+      height: size.height*0.1,
+      child:  
+          Row(
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(
+                width: 20,
+              ),
+              Text(
+              "Mohon tunggu")],
+          )
+    );
   }
 }

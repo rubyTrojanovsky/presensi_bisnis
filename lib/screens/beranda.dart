@@ -12,7 +12,7 @@ class Beranda extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final validator = Get.put(MhsController());
+
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 5, 78, 33),
       body: Padding(
@@ -65,7 +65,6 @@ class Beranda extends StatelessWidget {
             Button(
               buttonDesc: 'Lihat daftar hadir',
               buttonTap: () {
-                validator.getSpecificMhs();
                 Get.to(() => DaftarHadir(),);
               },
             )

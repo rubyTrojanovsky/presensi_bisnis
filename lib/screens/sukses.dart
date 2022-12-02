@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:presensi_bisnis/controller/absen_controller.dart';
 import 'package:presensi_bisnis/screens/beranda.dart';
 
 import '../components/button.dart';
@@ -40,6 +41,7 @@ class SuksesPage extends StatelessWidget {
               ),
               Button(buttonTap: () {
                   Get.offAll(() => Beranda());
+                  Get.delete<AbsenController>();
                 } , buttonDesc: 'Kembali ke Beranda')
             ],
           ),

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:presensi_bisnis/components/button.dart';
@@ -21,7 +23,7 @@ class InputManual extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async {
         // Do something here
-        Get.to(() => ScanQR());
+        Get.off(() => ScanQR());
         return false;
      },
     child: Scaffold(
@@ -48,14 +50,11 @@ class InputManual extends StatelessWidget {
               ),
               Button(
                   buttonTap: () {
-                    validator.getSpecificMhs();
                     if (GetUtils.isNum(npmController.npm.value) &&
                         npmController.npm.value.length == 8) {
+                          validator.getSpecificMhs();
                       npmController.namaMhs.value = newDataMhs.nama!;
-                      Get.to(() => Validasi(
-                            npm: npmController.npm.value,
-                            nama: npmController.namaMhs.value
-                          ));
+                      Get.to(() => Validasi());
                     } else {
                       print('format tidak sesuai');
                     }

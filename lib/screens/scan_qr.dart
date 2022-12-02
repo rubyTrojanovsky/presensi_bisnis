@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -44,6 +45,8 @@ class _ScanQRState extends State<ScanQR> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     AbsenController npmController = Get.put(AbsenController());
+    final validator = Get.put(MhsController());
+    validator.getSpecificMhs();
     return WillPopScope(
       onWillPop: () async {
         // Do something here
@@ -90,12 +93,11 @@ class _ScanQRState extends State<ScanQR> {
                     Get.to(() => InputManual());
                   },
                   buttonDesc: 'Presensi manual'),
-              //     Center(
-              //   child: (result != null)
-              //       ? Text(
-              //           'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
-              //       : Text('Scan a code'),
-              // ),
+                  Center(
+                child: (result != null)
+                    ? Loading()
+                    : Text('Scan a code'),
+              ),
 
             ],
           ),
@@ -121,23 +123,28 @@ class _ScanQRState extends State<ScanQR> {
     final validator = Get.put(MhsController());
     this.controller = controller;
     controller.resumeCamera();
-    controller.scannedDataStream.listen((scanData) async {
+    controller.scannedDataStream.listen((scanData){
       setState(() {
         result = scanData;
         npmController.npm.value = result!.code.toString();
       });
-      await validator.getSpecificMhs();
-      MahasiswaModel newDataMhs = validator.dataMahasiswa;
-      npmController.namaMhs.value = newDataMhs.nama!;
+      
+      controller.stopCamera();
+      validator.getSpecificMhs();
+      // MahasiswaModel newDataMhs = validator.dataMahasiswa;
+      // npmController.setNama(newDataMhs.nama!.toString());
+      print('======================='+npmController.namaMhs.value);
+      print('======================='+npmController.npm.value);
+
         // if (GetUtils.isNum(npmController.npm.value) && npmController.npm.value == 8) {
-        if (validator.dataMahasiswa == null) {
-          print('data tidak ditemukan');
-        } else {
-          Get.to(() => Validasi(
-                npm: npmController.npm.value,
-                nama: npmController.namaMhs.value
+        if (validator.dataMahasiswa != null) {
+          Timer(Duration(seconds: 2),() {
+            Get.to(() => Validasi(
               ));
-          controller.stopCamera();
+      });
+        } else {
+          print('data tidak ditemukan');
+          controller.resumeCamera();
         }
     });
   }
