@@ -7,8 +7,9 @@ import 'package:presensi_bisnis/screens/sukses.dart';
 import '../components/button.dart';
 
 class Validasi extends StatelessWidget {
-  const Validasi({Key? key, required this.npm}) : super(key: key);
-  final npm;
+  const Validasi({Key? key, required this.npm, required this.nama}) : super(key: key);
+  final String npm;
+  final String nama;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +22,7 @@ class Validasi extends StatelessWidget {
         return false;
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
             title: Text('Konfirmasi'),
             centerTitle: true,
@@ -53,11 +55,12 @@ class Validasi extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      DataMhs(datamhs: "NPM : "+npm),
+                      DataMhs(datamhs: "NPM : ${npm}"),
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          DataMhs(datamhs: "Nama :"),
-                          Flexible(child: DataMhs(datamhs: 'asd akjsdh kajsdh kajhsd kajsdh jk'))
+                          DataMhs(datamhs: "Nama : "),
+                          Flexible(child: DataMhs(datamhs: nama))
                         ],
                       ),Row(
                         children: [
@@ -99,6 +102,6 @@ class DataMhs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(datamhs, style: TextStyle(fontSize: 18), maxLines: 1,);
+    return Text(datamhs, style: TextStyle(fontSize: 17), maxLines: 2,);
   }
 }

@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:presensi_bisnis/components/button.dart';
+import 'package:presensi_bisnis/components/dialog.dart';
 import 'package:presensi_bisnis/controller/absen_controller.dart';
+import 'package:presensi_bisnis/models/absen_model.dart';
 import 'package:presensi_bisnis/screens/scan_qr.dart';
 import 'package:presensi_bisnis/screens/validasi.dart';
 
+import '../models/api_provider.dart';
+
 class InputManual extends StatelessWidget {
   const InputManual({Key? key}) : super(key: key);
+  
 
   @override
   Widget build(BuildContext context) {
+    final validator = Get.put(MhsController());
+    MahasiswaModel newDataMhs = validator.dataMahasiswa;
     AbsenController npmController = Get.put(AbsenController());
     return WillPopScope(
       onWillPop: () async {
@@ -41,10 +48,13 @@ class InputManual extends StatelessWidget {
               ),
               Button(
                   buttonTap: () {
+                    validator.getSpecificMhs();
                     if (GetUtils.isNum(npmController.npm.value) &&
                         npmController.npm.value.length == 8) {
+                      npmController.namaMhs.value = newDataMhs.nama!;
                       Get.to(() => Validasi(
                             npm: npmController.npm.value,
+                            nama: npmController.namaMhs.value
                           ));
                     } else {
                       print('format tidak sesuai');
