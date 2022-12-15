@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:presensi_bisnis/controller/absen_controller.dart';
-import 'package:presensi_bisnis/models/api_provider.dart';
+import 'package:presensi_bisnis/services/api_provider.dart';
 import 'package:presensi_bisnis/screens/scan_qr.dart';
 import 'package:presensi_bisnis/screens/sukses.dart';
 
@@ -15,6 +15,7 @@ class Validasi extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     AbsenController validasiController = Get.put(AbsenController());
+    final validator = Get.put(MhsController());
     return WillPopScope(
       onWillPop: () async {
         // Do something here
@@ -69,7 +70,7 @@ class Validasi extends StatelessWidget {
                         ],
                       ),Row(
                         children: [
-                          DataMhs(datamhs: "Jadwal : "),
+                          DataMhs(datamhs: "Minggu ke : "),
                           DataMhs(datamhs: validasiController.tanggal.toString())
                         ],
                       ),
@@ -84,6 +85,7 @@ class Validasi extends StatelessWidget {
               Button(
                   buttonDesc: 'Presensi',
                   buttonTap: () {
+                    validator.postAbsensi();
                     Get.to(() => SuksesPage());
                   },
               )

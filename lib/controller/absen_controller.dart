@@ -9,12 +9,12 @@ class AbsenController extends GetxController {
   RxString _matkul = "Bisnis Informatika".obs;
   RxString get matkul => this._matkul;
 
-  static List<String> listTanggal = <String>[
-    'Minggu 1', 'Minggu 2', 'Minggu 3', 'Minggu 4',
-    'Minggu 5', 'Minggu 6', 'Minggu 7', 'Minggu 8',
-    'Minggu 9', 'Minggu 10' ,'Minggu 11', 'Minggu 12', 'Minggu 13', 'Minggu 14'];
-  RxString _tanggal = "Minggu 1".obs;
-  RxString get tanggal => this._tanggal;
+  static List<int> listTanggal = <int>[
+    1, 2, 3, 4,
+    5, 6, 7, 8,
+    9, 10 ,11, 12, 13, 14];
+  RxInt _tanggal = 1.obs;
+  RxInt get tanggal => this._tanggal;
 
   RxString _npm = '50419135'.obs;
   RxString get npm => this._npm;
@@ -41,7 +41,7 @@ class AbsenController extends GetxController {
     print(value);
   }
 
-  void setTanggal(String value) {
+  void setTanggal(int value) {
     tanggal.value = value;
     print(value);
   }

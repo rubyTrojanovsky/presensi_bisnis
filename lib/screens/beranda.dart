@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:presensi_bisnis/components/button.dart';
 import 'package:presensi_bisnis/components/dropdown.dart';
-import 'package:presensi_bisnis/models/api_provider.dart';
+import 'package:presensi_bisnis/services/api_provider.dart';
 import 'package:presensi_bisnis/screens/daftar_hadir.dart';
 import 'package:presensi_bisnis/screens/scan_qr.dart';
 
@@ -12,7 +12,6 @@ class Beranda extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 5, 78, 33),
       body: Padding(
@@ -45,7 +44,7 @@ class Beranda extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                InputHint(hint: 'Jadwal'),
+                InputHint(hint: 'Minggu ke'),
                 SizedBox(height: 5,),
                 DropdownTanggal(),
               ],
