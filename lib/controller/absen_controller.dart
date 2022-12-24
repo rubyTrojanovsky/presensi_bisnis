@@ -2,16 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AbsenController extends GetxController {
-  static List<String> listMatkul = <String>['Bisnis Informatika', 'PPPL', 'Pengolahan Citra', 'RPL 2'];
+  static List<String> listMatkul = <String>[
+    'Bisnis Informatika', 'PPPL', 'Pengolahan Citra', 'RPL 2',
+    'Jaringan Komputer', 'Permodelan dan Simulasi', 'Teknik Kompilasi',
+    'Bahasa Inggris Bisnis'];
   RxString _matkul = "Bisnis Informatika".obs;
   RxString get matkul => this._matkul;
 
-  static List<String> listTanggal = <String>['10 November 2022', '11 November 2022', '12 November 2022', '13 November 2022'];
-  RxString _tanggal = "10 November 2022".obs;
-  RxString get tanggal => this._tanggal;
+  static List<int> listTanggal = <int>[
+    1, 2, 3, 4,
+    5, 6, 7, 8,
+    9, 10 ,11, 12, 13, 14];
+  RxInt _tanggal = 1.obs;
+  RxInt get tanggal => this._tanggal;
 
-  RxString _npm = ''.obs;
+  RxString _npm = '50419135'.obs;
   RxString get npm => this._npm;
+
+  RxString _namaMhs= ''.obs;
+  RxString get namaMhs => this._namaMhs;
 
   final inputNPM = TextEditingController();
 
@@ -32,7 +41,7 @@ class AbsenController extends GetxController {
     print(value);
   }
 
-  void setTanggal(String value) {
+  void setTanggal(int value) {
     tanggal.value = value;
     print(value);
   }
@@ -42,5 +51,8 @@ class AbsenController extends GetxController {
     print(value);
   }
 
-
+  void setNama(String value) {
+    namaMhs.value = value;
+    print(value);
+  }
 }

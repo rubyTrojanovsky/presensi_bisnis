@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:presensi_bisnis/controller/absen_controller.dart';
+import 'package:presensi_bisnis/services/api_provider.dart';
 import 'package:presensi_bisnis/screens/scan_qr.dart';
 import 'package:presensi_bisnis/screens/sukses.dart';
 
 import '../components/button.dart';
 
 class Validasi extends StatelessWidget {
-  const Validasi({Key? key, required this.npm}) : super(key: key);
-  final npm;
+  const Validasi({Key? key,}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     AbsenController validasiController = Get.put(AbsenController());
+    final validator = Get.put(MhsController());
     return WillPopScope(
       onWillPop: () async {
         // Do something here
-        Get.to(() => ScanQR());
+        Get.offAll(() => ScanQR());
         return false;
       },
-      child: Scaffold(
+      child:Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
             title: Text('Konfirmasi'),
             centerTitle: true,
@@ -53,11 +56,12 @@ class Validasi extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      DataMhs(datamhs: "NPM : "+npm),
+                      DataMhs(datamhs: "NPM : "+ validasiController.npm.value),
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          DataMhs(datamhs: "Nama :"),
-                          Flexible(child: DataMhs(datamhs: 'asd akjsdh kajsdh kajhsd kajsdh jk'))
+                          DataMhs(datamhs: "Nama : "),
+                          Flexible(child: DataMhs(datamhs: validasiController.namaMhs.value))
                         ],
                       ),Row(
                         children: [
@@ -66,7 +70,7 @@ class Validasi extends StatelessWidget {
                         ],
                       ),Row(
                         children: [
-                          DataMhs(datamhs: "Jadwal : "),
+                          DataMhs(datamhs: "Minggu ke : "),
                           DataMhs(datamhs: validasiController.tanggal.toString())
                         ],
                       ),
@@ -81,6 +85,7 @@ class Validasi extends StatelessWidget {
               Button(
                   buttonDesc: 'Presensi',
                   buttonTap: () {
+                    validator.postAbsensi();
                     Get.to(() => SuksesPage());
                   },
               )
@@ -99,6 +104,6 @@ class DataMhs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(datamhs, style: TextStyle(fontSize: 18), maxLines: 1,);
+    return Text(datamhs, style: TextStyle(fontSize: 17), maxLines: 2,);
   }
 }

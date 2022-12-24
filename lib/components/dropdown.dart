@@ -63,13 +63,14 @@ class DropdownTanggal extends StatelessWidget {
                   'Type',
                 ),
                 onChanged: (newValue) {
-                  controller.setTanggal(newValue.toString());
+                  var value = int.parse(newValue.toString());
+                  controller.setTanggal(value);
                 },
                 value: controller.tanggal.value,
                 items: AbsenController.listTanggal.map((selectedType) {
                   return DropdownMenuItem(
                     child: new Text(
-                      selectedType,
+                      selectedType.toString(),
                     ),
                     value: selectedType,
                   );
