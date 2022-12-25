@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:presensi_bisnis/controller/absen_controller.dart';
@@ -8,21 +10,35 @@ import 'package:presensi_bisnis/screens/sukses.dart';
 import '../components/button.dart';
 
 class Validasi extends StatelessWidget {
-  const Validasi({Key? key,}) : super(key: key);
-
+  const Validasi({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     AbsenController validasiController = Get.put(AbsenController());
     final validator = Get.put(MhsController());
+    AlertDialog loading = AlertDialog(
+                        content: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Row(
+                      children: [
+                          CircularProgressIndicator(),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Text("Mohon tunggu")
+                      ],
+                    ),
+                        ));
     return WillPopScope(
       onWillPop: () async {
         // Do something here
-        Get.offAll(() => ScanQR());
+        Get.off(() => ScanQR());
         return false;
       },
-      child:Scaffold(
+      child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
             title: Text('Konfirmasi'),
@@ -41,9 +57,9 @@ class Validasi extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              Icon(
-                Icons.pending_actions, size: size.width * 0.5, color: Color.fromARGB(255, 29, 133, 69)
-              ),
+              Icon(Icons.pending_actions,
+                  size: size.width * 0.5,
+                  color: Color.fromARGB(255, 29, 133, 69)),
               SizedBox(
                 height: 20,
               ),
@@ -56,38 +72,53 @@ class Validasi extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      DataMhs(datamhs: "NPM : "+ validasiController.npm.value),
+                      DataMhs(datamhs: "NPM : " + validasiController.npm.value),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           DataMhs(datamhs: "Nama : "),
-                          Flexible(child: DataMhs(datamhs: validasiController.namaMhs.value))
+                          Flexible(
+                              child: DataMhs(
+                                  datamhs: validasiController.namaMhs.value))
                         ],
-                      ),Row(
+                      ),
+                      Row(
                         children: [
                           DataMhs(datamhs: "Mata Kuliah : "),
                           DataMhs(datamhs: validasiController.matkul.toString())
                         ],
-                      ),Row(
+                      ),
+                      Row(
                         children: [
                           DataMhs(datamhs: "Minggu ke : "),
-                          DataMhs(datamhs: validasiController.tanggal.toString())
+                          DataMhs(
+                              datamhs: validasiController.tanggal.toString())
                         ],
                       ),
                       SizedBox(
-                  height: 5,
-              ),
-                      
+                        height: 5,
+                      ),
                     ],
                   ),
                 ),
               ),
               Button(
-                  buttonDesc: 'Presensi',
-                  buttonTap: () {
-                    validator.postAbsensi();
+                buttonDesc: 'Presensi',
+                buttonTap: () {
+                  validator.postAbsensi();
+                    
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return loading;
+                      },
+                    );
+                  
+
+                  Timer(Duration(seconds: 3), () {
                     Get.to(() => SuksesPage());
-                  },
+                  });
+                },
               )
             ],
           ),
@@ -104,6 +135,10 @@ class DataMhs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(datamhs, style: TextStyle(fontSize: 17), maxLines: 2,);
+    return Text(
+      datamhs,
+      style: TextStyle(fontSize: 17),
+      maxLines: 2,
+    );
   }
 }

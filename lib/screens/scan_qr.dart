@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:presensi_bisnis/components/button.dart';
-import 'package:presensi_bisnis/components/dialog.dart';
+
 import 'package:presensi_bisnis/controller/absen_controller.dart';
 import 'package:presensi_bisnis/models/mahasiswa_model.dart';
 import 'package:presensi_bisnis/services/api_provider.dart';
@@ -50,7 +50,7 @@ class _ScanQRState extends State<ScanQR> {
     return WillPopScope(
       onWillPop: () async {
         // Do something here
-        Get.offAll(() => Beranda());
+        Get.off(() => Beranda());
         return false;
       },
       child: Scaffold(
@@ -67,22 +67,6 @@ class _ScanQRState extends State<ScanQR> {
                 height: size.height * 0.6,
                 child: buildQrView(context),
               ),
-              // SizedBox(
-              //   height: 0,
-              //   width: 0,
-              //   child: FutureBuilder<ListAllMahasiswa>(
-              //   future: futureMhs,
-              //   builder: (context, snapshot) {
-              //     if (snapshot.hasData) {
-              //       npmController.namaMhs.value = snapshot.data!.nama;
-              //     } else if (snapshot.hasError) {
-              //       return Text('${snapshot.error}');
-              //     }
-
-              //     // By default, show a loading spinner.
-              //     return const Loading();
-              //   },
-              // )),
               SizedBox(
                 height: 20,
               ),
@@ -93,12 +77,34 @@ class _ScanQRState extends State<ScanQR> {
                     Get.to(() => InputManual());
                   },
                   buttonDesc: 'Presensi manual'),
-                  Center(
-                child: (result != null)
-                    ? Loading()
-                    : Text('Scan a code'),
+              SizedBox(
+                height: 20,
               ),
-
+              Center(
+                child: Column(
+                        children: [
+                          Text(
+                            "INFORMASI DATA PRESENSI",
+                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                          ),
+                          SizedBox(
+                            height: 4,
+                          ),
+                          Text(
+                            "Mata kuliah: " + npmController.matkul.value,
+                            style: TextStyle(fontSize: 14),
+                          ),
+                          SizedBox(
+                            height: 4,
+                          ),
+                          Text(
+                            "Minggu ke-" +
+                                npmController.tanggal.value.toString(),
+                            style: TextStyle(fontSize: 14),
+                          ),
+                        ],
+                      ),
+              ),
             ],
           ),
         ),
@@ -123,29 +129,47 @@ class _ScanQRState extends State<ScanQR> {
     final validator = Get.put(MhsController());
     this.controller = controller;
     controller.resumeCamera();
-    controller.scannedDataStream.listen((scanData){
+    controller.scannedDataStream.listen((scanData) {
       setState(() {
         result = scanData;
         npmController.npm.value = result!.code.toString();
       });
-      
+
       controller.stopCamera();
       validator.getSpecificMhs();
+      AlertDialog loading = AlertDialog(
+                        content: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Row(
+                      children: [
+                          CircularProgressIndicator(),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Text("Mohon tunggu")
+                      ],
+                    ),
+                        ));
+      showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return loading;
+                      },
+                    );
       // MahasiswaModel newDataMhs = validator.dataMahasiswa;
       // npmController.setNama(newDataMhs.nama!.toString());
-      print('======================='+npmController.namaMhs.value);
-      print('======================='+npmController.npm.value);
+      print('=======================' + npmController.namaMhs.value);
+      print('=======================' + npmController.npm.value);
 
-        // if (GetUtils.isNum(npmController.npm.value) && npmController.npm.value == 8) {
-        if (validator.dataMahasiswa != null) {
-          Timer(Duration(seconds: 2),() {
-            Get.to(() => Validasi(
-              ));
-      });
-        } else {
-          print('data tidak ditemukan');
-          controller.resumeCamera();
-        }
+      // if (GetUtils.isNum(npmController.npm.value) && npmController.npm.value == 8) {
+      if (validator.dataMahasiswa != null) {
+        Timer(Duration(seconds: 2), () {
+          Get.to(() => Validasi());
+        });
+      } else {
+        print('data tidak ditemukan');
+        controller.resumeCamera();
+      }
     });
   }
 }

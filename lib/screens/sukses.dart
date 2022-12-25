@@ -40,8 +40,7 @@ class SuksesPage extends StatelessWidget {
                 height: size.height*0.05,
               ),
               Button(buttonTap: () {
-                  Get.offAll(() => Beranda());
-                  Get.delete<AbsenController>();
+                  Get.off(() => Beranda());
                 } , buttonDesc: 'Kembali ke Beranda')
             ],
           ),

@@ -26,7 +26,7 @@ class AbsenController extends GetxController {
 
   @override
   void onInit() {
-    matkul;
+    inputNPM;
     super.onInit();
   }
 

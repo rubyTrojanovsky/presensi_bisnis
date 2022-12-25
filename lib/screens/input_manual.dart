@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:presensi_bisnis/components/button.dart';
-import 'package:presensi_bisnis/components/dialog.dart';
 import 'package:presensi_bisnis/controller/absen_controller.dart';
 import 'package:presensi_bisnis/models/mahasiswa_model.dart';
 import 'package:presensi_bisnis/screens/scan_qr.dart';
@@ -19,6 +18,19 @@ class InputManual extends StatelessWidget {
     final validator = Get.put(MhsController());
     bool validateNPM = false;
     AbsenController npmController = Get.put(AbsenController());
+    AlertDialog loading = AlertDialog(
+        content: Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Row(
+        children: [
+          CircularProgressIndicator(),
+          SizedBox(
+            width: 20,
+          ),
+          Text("Mohon tunggu")
+        ],
+      ),
+    ));
     return WillPopScope(
         onWillPop: () async {
           // Do something here
@@ -37,17 +49,24 @@ class InputManual extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Masukkan NPM'),
-                  SizedBox(
-                    height: 14,
-                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: TextField(
-                      decoration: InputDecoration(border: OutlineInputBorder()),
-                      controller: npmController.inputNPM,
-                      onChanged: ((value) =>
-                          npmController.setNPM(value.toString())),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Masukkan NPM'),
+                        SizedBox(
+                          height: 14,
+                        ),
+                        TextField(
+                          decoration:
+                              InputDecoration(border: OutlineInputBorder()),
+                          controller: npmController.inputNPM,
+                          onChanged: ((value) =>
+                              npmController.setNPM(value.toString())),
+                        ),
+                      ],
                     ),
                   ),
                   SizedBox(
@@ -56,9 +75,16 @@ class InputManual extends StatelessWidget {
                   Button(
                       buttonTap: () {
                         validator.getSpecificMhs();
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return loading;
+                          },
+                        );
                         validateNPM = true;
                         if (GetUtils.isNum(npmController.npm.value) &&
-                            npmController.npm.value.length == 8 && validateNPM == true) {
+                            npmController.npm.value.length == 8 &&
+                            validateNPM == true) {
                           Timer(Duration(seconds: 2), () {
                             Get.to(() => Validasi());
                           });
