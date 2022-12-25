@@ -19,6 +19,9 @@ class AbsenController extends GetxController {
   RxString _npm = '50419135'.obs;
   RxString get npm => this._npm;
 
+  RxString _npmTemp = '0'.obs;
+  RxString get npmTemp => this._npmTemp;
+
   RxString _namaMhs= ''.obs;
   RxString get namaMhs => this._namaMhs;
 
@@ -43,6 +46,11 @@ class AbsenController extends GetxController {
 
   void setTanggal(int value) {
     tanggal.value = value;
+    print(value);
+  }
+
+  void setNPMTemp(String value) {
+    npmTemp.value = value;
     print(value);
   }
 

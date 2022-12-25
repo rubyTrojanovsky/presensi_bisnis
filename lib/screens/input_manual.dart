@@ -16,7 +16,6 @@ class InputManual extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final validator = Get.put(MhsController());
-    int npmTemp = 0;
     bool validateNPM = false;
     AbsenController npmController = Get.put(AbsenController());
     AlertDialog loading = AlertDialog(
@@ -65,8 +64,9 @@ class InputManual extends StatelessWidget {
                               InputDecoration(border: OutlineInputBorder()),
                           controller: npmController.inputNPM,
                           onChanged: ((value) =>
-                              npmTemp),
+                              npmController.setNPMTemp(value.toString())),
                         ),
+                        
                       ],
                     ),
                   ),
@@ -75,7 +75,7 @@ class InputManual extends StatelessWidget {
                   ),
                   Button(
                       buttonTap: () {
-                        npmController.setNPM(npmTemp.toString());
+                        npmController.setNPM(npmController.npmTemp.toString());
                         validator.getSpecificMhs();
                         showDialog(
                           context: context,
