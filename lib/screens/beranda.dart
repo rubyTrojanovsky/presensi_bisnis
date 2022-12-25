@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:presensi_bisnis/components/button.dart';
 import 'package:presensi_bisnis/components/dropdown.dart';
@@ -12,7 +13,13 @@ class Beranda extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
+    return WillPopScope(
+      onWillPop: () async {
+        // Do something here
+        SystemNavigator.pop();
+        return false;
+      },
+      child: Scaffold(
       backgroundColor: Color.fromARGB(255, 5, 78, 33),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 48, 16, 18),
@@ -70,6 +77,7 @@ class Beranda extends StatelessWidget {
           ],
         ),
       ),
+    )
     );
   }
 }
